@@ -1,16 +1,17 @@
-import { useNavigate } from 'react-router-dom';
-import cartIcon from '../assets/img/cart.svg';
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function ProductCard({id, thumbnail, title, price, discountPercentage}) {
+export default function ProductCard({id, category, thumbnail, title, price, discountPercentage}) {
     const navigate = useNavigate();
 
     return (
-        <div className='border border-solid rounded p-4'>
-            <div className='max-h-[150px] overflow-hidden'>
+        <div className='border border-solid rounded-md p-3'>
+            <div className='max-h-[150px] overflow-hidden rounded'>
                 <img src={thumbnail} alt="" />
             </div>
-            <h4 className="font-bold my-2" onClick={() => navigate(`/product/${id}`)}>
-                {title}
+            <h4 className="font-bold my-2">
+                <Link to={`/product/${category}/${id}`}>
+                    {title}
+                </Link>
             </h4>
             <div className='flex justify-between items-center'>
                 <div className='font-medium'>
@@ -24,13 +25,9 @@ export default function ProductCard({id, thumbnail, title, price, discountPercen
                     ) : (
                         <span>${price}</span>
                     )}
-                    
-                    {/* {discountPercentage && (
-                            
-                    )} */}
                 </div>
                 <div className='cursor-pointer'>
-                    <img src={cartIcon} alt="cart icon" />
+                    <img src="" alt="cart icon" />
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import ProductCard from "../components/ProductCard";
+import {motion} from 'framer-motion';
 
 export default function Home() {
     const [products, setProducts] = useState([]);
@@ -17,7 +18,13 @@ export default function Home() {
     }, []);
 
     return (
-        isLoading == true ? (
+        <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 1}}
+        >
+        {isLoading == true ? (
             !fetchError ? <div>Loading</div> : <div>Something went wrong!</div>
         ) : (
             <div className="container mx-auto">
@@ -25,6 +32,7 @@ export default function Home() {
                     {products.map(product => (
                         <ProductCard key={product.id}
                                     id={product.id}
+                                    category={product.category}
                                     thumbnail={product.thumbnail}
                                     title={product.title}
                                     price={product.price}
@@ -32,6 +40,7 @@ export default function Home() {
                     ))}
                 </div>
             </div>
-        )
+        )}
+        </motion.div>
     );
 }

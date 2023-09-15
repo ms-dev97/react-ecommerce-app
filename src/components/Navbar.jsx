@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
     return (
         <nav className="py-3">
             <div className="container mx-auto">
                 <div className="flex justify-between">
-                    <a href="#" className="logo">
+                    <Link to="/" className="logo">
                         <img src="" alt="" />
                         <span>uBuy</span>
-                    </a>
+                    </Link>
 
                     <ul className="md:flex gap-5">
                         <li><a href="#">Home</a></li>
