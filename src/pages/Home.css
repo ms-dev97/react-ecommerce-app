@@ -1,0 +1,15 @@
+.rs-pagination {
+    display: flex;
+    gap: 5px;
+}
+.rs-pagination-btn {
+    padding: 5px 10px;
+    font-size: 0.875rem;
+    border: 2px solid transparent;
+    border-radius: 4px;
+}
+.rs-pagination-btn-active {
+    border-color:#0891b2;
+    color: #0891b2;
+    font-weight: bold;
+}
