@@ -6,11 +6,13 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import {motion} from 'framer-motion';
 import ProductCard from "../components/ProductCard";
+import { Placeholder } from "rsuite";
+import 'rsuite/dist/rsuite.min.css';
 
 export default function Product() {
     const [product, setProduct] = useState({});
     const [similarProducts, setSimilarProducts] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [fetchError, setfetchError] = useState(false);
     const [quantity, setQuantity] = useState(0);
     const {id, category} = useParams();
@@ -40,6 +42,15 @@ export default function Product() {
         setQuantity(q => q > 0 ? q -= 1 : 0);
     }
 
+    function ProductCardPlaceholder() {
+        return (
+            <div className="border border-solid rounded-md p-3">
+                <Placeholder.Graph />
+                <Placeholder.Paragraph style={{ marginTop: 10 }} />
+            </div>
+        )
+    }
+
     return (
         <motion.div
             initial={{opacity: 0}}
@@ -48,7 +59,27 @@ export default function Product() {
             transition={{duration: 1}}
         >
         {isLoading == true ? (
-            !fetchError ? <div>Loading...</div> : <div>Something went wrong!</div>
+            <>
+                <div className="container md:flex my-5 mx-auto gap-10">
+                    <div className="md:w-1/2">
+                        <Placeholder.Graph />
+                    </div>
+
+                    <div className="md:w-1/2">
+                        <Placeholder.Paragraph rows={7} />
+                    </div>
+                </div>
+
+                <div className="my-9 mx-auto container">
+                    <Placeholder.Paragraph className="mb-3" rows={1} />
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <ProductCardPlaceholder />
+                        <ProductCardPlaceholder />
+                        <ProductCardPlaceholder />
+                        <ProductCardPlaceholder />
+                    </div>
+                </div>
+            </>
         ) : (
             <>
                 <div className="container md:flex my-5 mx-auto gap-10">
