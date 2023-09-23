@@ -8,14 +8,19 @@ import {motion} from 'framer-motion';
 import ProductCard from "../components/ProductCard";
 import { Placeholder } from "rsuite";
 import 'rsuite/dist/rsuite.min.css';
+import {BsArrowClockwise} from 'react-icons/bs';
+import { addItem } from "../actions";
+import { useDispatch } from "react-redux";
 
 export default function Product() {
     const [product, setProduct] = useState({});
     const [similarProducts, setSimilarProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [fetchError, setfetchError] = useState(false);
-    const [quantity, setQuantity] = useState(0);
+    const [reload, setReload] = useState([]);
+    const [quantity, setQuantity] = useState(1);
     const {id, category} = useParams();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         fetch(`https://dummyjson.com/products/${id}`)
@@ -31,7 +36,7 @@ export default function Product() {
             .then(data => {
                 setSimilarProducts(data);
             })
-    }, [id]);
+    }, [id, reload]);
 
 
     function increaseQuantity() {
@@ -40,6 +45,17 @@ export default function Product() {
 
     function decreaseQuantity() {
         setQuantity(q => q > 0 ? q -= 1 : 0);
+    }
+
+    function addToCare() {
+        dispatch(addItem({
+            id: product.id,
+            name: product.title,
+            thumbnail: product.thumbnail,
+            quantity: quantity,
+            price: product.discountPercentage > 0 ? (product.price - ((product.discountPercentage*product.price)/100)).toFixed(2) : product.price,
+            discountPercentage: product.discountPercentage
+        }));
     }
 
     function ProductCardPlaceholder() {
@@ -59,27 +75,36 @@ export default function Product() {
             transition={{duration: 1}}
         >
         {isLoading == true ? (
-            <>
-                <div className="container md:flex my-5 mx-auto gap-10">
-                    <div className="md:w-1/2">
-                        <Placeholder.Graph />
+            fetchError == false ? (
+                <>
+                    <div className="container md:flex my-5 mx-auto gap-10">
+                        <div className="md:w-1/2">
+                            <Placeholder.Graph />
+                        </div>
+
+                        <div className="md:w-1/2">
+                            <Placeholder.Paragraph rows={7} />
+                        </div>
                     </div>
 
-                    <div className="md:w-1/2">
-                        <Placeholder.Paragraph rows={7} />
+                    <div className="my-9 mx-auto container">
+                        <Placeholder.Paragraph className="mb-3" rows={1} />
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <ProductCardPlaceholder />
+                            <ProductCardPlaceholder />
+                            <ProductCardPlaceholder />
+                            <ProductCardPlaceholder />
+                        </div>
                     </div>
-                </div>
-
-                <div className="my-9 mx-auto container">
-                    <Placeholder.Paragraph className="mb-3" rows={1} />
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                        <ProductCardPlaceholder />
-                        <ProductCardPlaceholder />
-                        <ProductCardPlaceholder />
-                        <ProductCardPlaceholder />
+                </> ) : (
+                    <div className="flex flex-col items-center justify-center gap-3 h-60">
+                        <p className="text-lg">Something went wrong!</p>
+                        <button className="cursor-pointer border py-2 px-4 flex justify-center items-center gap-3" onClick={() => setReload([])}>
+                            <span className="font-medium text-base">Try Again</span>
+                            <BsArrowClockwise />
+                        </button>
                     </div>
-                </div>
-            </>
+                )
         ) : (
             <>
                 <div className="container md:flex my-5 mx-auto gap-10">
@@ -115,7 +140,10 @@ export default function Product() {
                             {product.description}
                         </p>
                         <div className="flex flex-wrap items-center gap-5">
-                            <button className="flex items-center gap-3 bg-cyan-600 text-white py-2 px-5 rounded">
+                            <button 
+                                className="flex items-center gap-3 bg-cyan-600 text-white py-2 px-5 rounded"
+                                onClick={addToCare}
+                            >
                                 <BsFillCartFill />
                                 <span className="font-medium text-sm">Add to cart</span>
                             </button>
@@ -148,6 +176,7 @@ export default function Product() {
                                 thumbnail={item.thumbnail}
                                 title={item.title}
                                 price={item.price}
+                                discountPercentage={product.discountPercentage}
                             />
                         })}
                     </div>

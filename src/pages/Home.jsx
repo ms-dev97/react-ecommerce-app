@@ -4,22 +4,29 @@ import ProductCard from "../components/ProductCard";
 import './Home.css';
 import {motion} from 'framer-motion';
 import { Pagination, Placeholder } from "rsuite";
-import 'rsuite/dist/rsuite.min.css';
+import 'rsuite/dist/rsuite-no-reset.min.css';
+import {BsArrowClockwise} from 'react-icons/bs';
 
 export default function Home() {
     const [data, setData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [fetchError, setfetchError] = useState(false);
     const [activePage, setActivePage] = useState(1);
+    const [reload, setReload] = useState([]);
 
     useEffect(() => {
-        fetch(`https://dummyjson.com/products?limit=10&skip=${(activePage-1)*10}`)
+        fetch(`https://dummyjson.com/products?limit=12&skip=${(activePage-1)*12}`)
             .then(res => res.json())
             .then(data => {
                 setData(data);
                 setIsLoading(false);
             }).catch(e => setfetchError(true));
-    }, [activePage]);
+    }, [activePage, reload]);
+
+    function tryAgain() {
+        setReload([]);
+        setfetchError(false);
+    }
 
     function ProductPlaceholder() {
         return (
@@ -40,16 +47,26 @@ export default function Home() {
 
             <div className="container mx-auto">
                 {isLoading == true ? (
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                        <ProductPlaceholder />
-                        <ProductPlaceholder />
-                        <ProductPlaceholder />
-                        <ProductPlaceholder />
-                        <ProductPlaceholder />
-                        <ProductPlaceholder />
-                        <ProductPlaceholder />
-                        <ProductPlaceholder />
-                    </div>
+                    fetchError == false ? (
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                            <ProductPlaceholder />
+                            <ProductPlaceholder />
+                            <ProductPlaceholder />
+                            <ProductPlaceholder />
+                            <ProductPlaceholder />
+                            <ProductPlaceholder />
+                            <ProductPlaceholder />
+                            <ProductPlaceholder />
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center gap-3 h-60">
+                            <p className="text-lg">Something went wrong!</p>
+                            <button className="cursor-pointer border py-2 px-4 flex justify-center items-center gap-3" onClick={tryAgain}>
+                                <span className="font-medium text-base">Try Again</span>
+                                <BsArrowClockwise />
+                            </button>
+                        </div>
+                    )
                 ) : (
                     <>
                         <div className="container mx-auto">
@@ -68,7 +85,7 @@ export default function Home() {
 
                         <Pagination
                             total={data.total}
-                            limit={data.limit}
+                            limit={12}
                             activePage={activePage}
                             onChangePage={setActivePage}
                             className="container mx-auto my-10"
