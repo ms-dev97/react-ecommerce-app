@@ -9,7 +9,7 @@ export default function ProductCard({id, category, thumbnail, title, price, disc
                 <img src={thumbnail} alt="" />
             </div>
             <h4 className="font-bold my-2">
-                <Link to={`/product/${category}/${id}`}>
+                <Link to={`/product/${category}/${id}`} className="text-cyan-600 hover:text-cyan-600 hover:no-underline">
                     {title}
                 </Link>
             </h4>

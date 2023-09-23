@@ -70,7 +70,7 @@ export default function Home() {
                 ) : (
                     <>
                         <div className="container mx-auto">
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                                 {data.products.map(product => (
                                     <ProductCard key={product.id}
                                                 id={product.id}

@@ -119,7 +119,7 @@ export default function Product() {
                         <div className="font-medium text-sm uppercase">
                             {category}
                         </div>
-                        <h1 className="font-bold text-3xl text-gray-800 mb-5">
+                        <h1 className="font-bold text-3xl text-cyan-600 mb-5">
                             {product.title}
                         </h1>
                         <div className="font-medium text-lg mb-5">

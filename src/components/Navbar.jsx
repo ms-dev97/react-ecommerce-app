@@ -7,18 +7,21 @@ export default function Navbar() {
     const [isCartOpen, setIsCartOpen] = useState(false);
 
     return (
-        <nav className="py-3 relative">
+        <nav className="py-3 mb-10 relative">
             <div className="container mx-auto">
                 <div className="flex justify-between">
-                    <Link to="/" className="logo">
-                        <img src="" alt="" />
-                        <span className="">uBuy</span>
+                    <Link to="/" className="hover:no-underline text-cyan-600 hover:text-cyan-600">
+                        <span className="font-bold text-3xl">uBuy</span>
                     </Link>
 
                     <ul className="md:flex gap-5">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li onClick={() => setIsCartOpen(!isCartOpen)} className="cursor-pointer">
+                        <li>
+                            <a href="#" className="font-bold text-cyan-600 hover:text-cyan-600 hover:no-underline">Home</a>
+                        </li>
+                        <li>
+                            <a href="#" className="font-bold text-cyan-600 hover:text-cyan-600 hover:no-underline">About</a>
+                        </li>
+                        <li onClick={() => setIsCartOpen(!isCartOpen)} className="cursor-pointer font-bold text-cyan-600 hover:text-cyan-600 hover:no-underline">
                             Cart
                         </li>
                     </ul>
