@@ -77,7 +77,7 @@ export default function Product() {
         {isLoading == true ? (
             fetchError == false ? (
                 <>
-                    <div className="container md:flex my-5 mx-auto gap-10">
+                    <div className="container md:flex my-5 mx-auto gap-10 px-3">
                         <div className="md:w-1/2">
                             <Placeholder.Graph />
                         </div>
@@ -87,7 +87,7 @@ export default function Product() {
                         </div>
                     </div>
 
-                    <div className="my-9 mx-auto container">
+                    <div className="my-9 mx-auto container px-3">
                         <Placeholder.Paragraph className="mb-3" rows={1} />
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <ProductCardPlaceholder />
@@ -107,7 +107,7 @@ export default function Product() {
                 )
         ) : (
             <>
-                <div className="container md:flex my-5 mx-auto gap-10">
+                <div className="container md:flex my-5 mx-auto gap-10 px-3">
                     {/* Product Image Slider */}
                     <div className="md:w-1/2">
                         <Carousel>
@@ -163,7 +163,7 @@ export default function Product() {
                 </div>
 
                 {/* Similar Products */}
-                <section className="my-9 mx-auto container">
+                <section className="my-9 mx-auto container px-3">
                     <h4 className="font-bold text-2xl text-slate-900 mb-3">You may also like</h4>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

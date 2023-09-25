@@ -45,7 +45,7 @@ export default function Home() {
             transition={{duration: 1}}
         >
 
-            <div className="container mx-auto">
+            <div className="container mx-auto px-3">
                 {isLoading == true ? (
                     fetchError == false ? (
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
@@ -69,7 +69,7 @@ export default function Home() {
                     )
                 ) : (
                     <>
-                        <div className="container mx-auto">
+                        <div className="container mx-auto px-3">
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                                 {data.products.map(product => (
                                     <ProductCard key={product.id}
@@ -88,7 +88,7 @@ export default function Home() {
                             limit={12}
                             activePage={activePage}
                             onChangePage={setActivePage}
-                            className="container mx-auto my-10"
+                            className="container mx-auto my-10 px-3"
                         />
                     </>
                 )}

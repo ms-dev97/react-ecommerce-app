@@ -7,7 +7,7 @@ export default function Cart({closeCart}) {
     const dispatch = useDispatch();
 
     return (
-        <div className="">
+        <div>
                 <div className="font-bold text-xl mb-4 flex justify-between items-center">
                     Cart
                     <BsXCircle className="cursor-pointer" onClick={() => closeCart(false)} />
