@@ -10,7 +10,7 @@ import { Placeholder } from "rsuite";
 import 'rsuite/dist/rsuite.min.css';
 import {BsArrowClockwise} from 'react-icons/bs';
 import { addItem } from "../actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Product() {
     const [product, setProduct] = useState({});
@@ -21,8 +21,12 @@ export default function Product() {
     const [quantity, setQuantity] = useState(1);
     const {id, category} = useParams();
     const dispatch = useDispatch();
+    const cartItems = useSelector(state => state.cart);
+    const [itemInCart, setItemInCart] = useState(false);
 
     useEffect(() => {
+        setIsLoading(true);
+
         fetch(`https://dummyjson.com/products/${id}`)
             .then(res => res.json())
             .then(data => {
@@ -38,6 +42,16 @@ export default function Product() {
             })
     }, [id, reload]);
 
+    useEffect(() => {
+        setItemInCart(false);
+        cartItems.forEach(item => {
+            if (item.id === +id) {
+                setItemInCart(true);
+                return;
+            }
+        })
+    }, [cartItems, id]);
+
 
     function increaseQuantity() {
         setQuantity(q => q += 1);
@@ -47,15 +61,17 @@ export default function Product() {
         setQuantity(q => q > 0 ? q -= 1 : 0);
     }
 
-    function addToCare() {
-        dispatch(addItem({
-            id: product.id,
-            name: product.title,
-            thumbnail: product.thumbnail,
-            quantity: quantity,
-            price: product.discountPercentage > 0 ? (product.price - ((product.discountPercentage*product.price)/100)).toFixed(2) : product.price,
-            discountPercentage: product.discountPercentage
-        }));
+    function addToCart() {
+        !cartItems.some(item => item.id == product.id) && (
+            dispatch(addItem({
+                id: product.id,
+                name: product.title,
+                thumbnail: product.thumbnail,
+                quantity: quantity,
+                price: product.discountPercentage > 0 ? (product.price - ((product.discountPercentage*product.price)/100)).toFixed(2) : product.price,
+                discountPercentage: product.discountPercentage
+            }))
+        )
     }
 
     function ProductCardPlaceholder() {
@@ -141,8 +157,9 @@ export default function Product() {
                         </p>
                         <div className="flex flex-wrap items-center gap-5">
                             <button 
-                                className="flex items-center gap-3 bg-cyan-600 text-white py-2 px-5 rounded"
-                                onClick={addToCare}
+                                className="flex items-center gap-3 bg-cyan-600 text-white py-2 px-5 rounded disabled:opacity-70"
+                                disabled={itemInCart && 'disabled'}
+                                onClick={addToCart}
                             >
                                 <BsFillCartFill />
                                 <span className="font-medium text-sm">Add to cart</span>
