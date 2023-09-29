@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import Cart from './Cart';
 import {RxHamburgerMenu} from 'react-icons/rx';
 import {AiFillCloseCircle} from 'react-icons/ai'
+import { BsSearch } from "react-icons/bs";
 
 export default function Navbar() {
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [searchItems, setSearchItems] = useState([]);
     const menuBtn = useRef();
 
     function toggleMenu() {
@@ -32,6 +34,17 @@ export default function Navbar() {
                     <Link to="/" className="hover:no-underline text-cyan-600 hover:text-cyan-600">
                         <span className="font-bold text-3xl">uBuy</span>
                     </Link>
+
+                    <div className="relative">
+                        <input
+                         placeholder="Search products..."
+                         type="text" 
+                         className="w-[400px] h-[40px] ps-3 border border-solid rounded-md"
+                        />
+                        
+                        <BsSearch className="absolute top-1/2 right-3 -translate-y-1/2" />
+
+                    </div>
 
                     {/* Desktop Menu */}
                     <ul className="md:flex hidden gap-5">
