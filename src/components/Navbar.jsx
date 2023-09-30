@@ -27,6 +27,19 @@ export default function Navbar() {
         menu.style.transform = '';
     }
 
+    function searchProduct(e) {
+        const query = e.target.value;
+
+        if (query != '') {
+            fetch(`https://dummyjson.com/products/search?q=${query}`)
+                .then(res => res.json())
+                .then(data => setSearchItems(data.products))
+                .catch(e => setSearchItems([]));
+        } else {
+            setSearchItems([]);
+        }
+    }
+
     return (
         <nav className="py-3 mb-10 relative">
             <div className="container mx-auto px-3">
@@ -35,14 +48,31 @@ export default function Navbar() {
                         <span className="font-bold text-3xl">uBuy</span>
                     </Link>
 
+                    {/* Search */}
                     <div className="relative">
                         <input
                          placeholder="Search products..."
                          type="text" 
                          className="w-[400px] h-[40px] ps-3 border border-solid rounded-md"
+                         onKeyUp={searchProduct}
                         />
                         
+                        {/* Search Icon */}
                         <BsSearch className="absolute top-1/2 right-3 -translate-y-1/2" />
+
+                        {/* Search Results */}
+                        {searchItems.length > 0 && (
+                            <div className="absolute top-full inset-x-0 bg-white shadow-2xl">
+                                {searchItems.map((item, i) => {
+                                    if (i >= 5) return;
+
+                                    return <a to={`/product/${item.category}/${item.id}`} className="flex gap-3 p-3 border-b" key={item.id}>
+                                                <img src={item.thumbnail} className="w-10" />
+                                                <div className="text-slate-900 hover:text-slate-900">{item.title}</div>
+                                            </a>
+                                })}
+                            </div>
+                        )}
 
                     </div>
 
