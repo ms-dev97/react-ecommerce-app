@@ -42,6 +42,7 @@ export default function Product() {
             })
     }, [id, reload]);
 
+    // check if item in cart
     useEffect(() => {
         setItemInCart(false);
         cartItems.forEach(item => {
@@ -185,7 +186,7 @@ export default function Product() {
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                         {similarProducts.products && similarProducts.products.map((item, i) => {
-                            if (i == 4) return;
+                            if (i >= 4) return;
                             return <ProductCard 
                                 key={item.id}
                                 category={item.category}
