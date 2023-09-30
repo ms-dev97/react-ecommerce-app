@@ -15,11 +15,14 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <AnimatePresence mode='wait'>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/product/:category/:id' element={<Product />} />
-        </Routes>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/product/:category/:id' element={<Product />} />
+          </Routes>
         </AnimatePresence>
+        <footer className='text-center border-t p-5 mt-5'>
+          All rights reserved
+        </footer>
       </BrowserRouter>
     </Provider>
   )

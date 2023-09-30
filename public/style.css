@@ -580,6 +580,11 @@ video {
   position: relative;
 }
 
+.inset-x-0 {
+  left: 0px;
+  right: 0px;
+}
+
 .end-0 {
   inset-inline-end: 0px;
 }
@@ -602,6 +607,10 @@ video {
 
 .top-1\/2 {
   top: 50%;
+}
+
+.top-full {
+  top: 100%;
 }
 
 .z-30 {
@@ -653,6 +662,10 @@ video {
   margin-bottom: 1.25rem;
 }
 
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
 .flex {
   display: flex;
 }
@@ -683,6 +696,10 @@ video {
 
 .max-h-\[150px\] {
   max-height: 150px;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .w-12 {
@@ -778,6 +795,14 @@ video {
   border-width: 1px;
 }
 
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.border-t {
+  border-top-width: 1px;
+}
+
 .border-solid {
   border-style: solid;
 }
@@ -838,6 +863,10 @@ video {
 .ps-3 {
   -webkit-padding-start: 0.75rem;
           padding-inline-start: 0.75rem;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .text-2xl {
@@ -911,6 +940,12 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.shadow-2xl {
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .transition {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -928,6 +963,11 @@ video {
 .hover\:text-cyan-600:hover {
   --tw-text-opacity: 1;
   color: rgb(8 145 178 / var(--tw-text-opacity));
+}
+
+.hover\:text-slate-900:hover {
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity));
 }
 
 .hover\:no-underline:hover {
