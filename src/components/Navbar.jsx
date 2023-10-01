@@ -40,6 +40,10 @@ export default function Navbar() {
         }
     }
 
+    function clearSearchResults() {
+        setTimeout(() => setSearchItems([]), 300);
+    }
+
     return (
         <nav className="py-3 mb-10 relative">
             <div className="container mx-auto px-3">
@@ -55,6 +59,7 @@ export default function Navbar() {
                          type="text" 
                          className="w-[400px] h-[40px] ps-3 border border-solid rounded-md"
                          onKeyUp={searchProduct}
+                         onBlur={clearSearchResults}
                         />
                         
                         {/* Search Icon */}
@@ -62,14 +67,14 @@ export default function Navbar() {
 
                         {/* Search Results */}
                         {searchItems.length > 0 && (
-                            <div className="absolute top-full inset-x-0 bg-white shadow-2xl">
+                            <div className="absolute top-full inset-x-0 z-50 bg-white shadow-2xl">
                                 {searchItems.map((item, i) => {
                                     if (i >= 5) return;
 
-                                    return <a to={`/product/${item.category}/${item.id}`} className="flex gap-3 p-3 border-b" key={item.id}>
+                                    return <Link to={`/product/${item.category}/${item.id}`} className="flex gap-3 p-3 border-b" key={item.id}>
                                                 <img src={item.thumbnail} className="w-10" />
                                                 <div className="text-slate-900 hover:text-slate-900">{item.title}</div>
-                                            </a>
+                                            </Link>
                                 })}
                             </div>
                         )}
