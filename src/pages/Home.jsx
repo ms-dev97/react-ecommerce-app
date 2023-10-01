@@ -23,6 +23,11 @@ export default function Home() {
             }).catch(e => setfetchError(true));
     }, [activePage, reload]);
 
+    // change document title
+    useEffect(() => {
+        document.title = 'uBuy'
+    }, []);
+
     function tryAgain() {
         setReload([]);
         setfetchError(false);

@@ -53,6 +53,11 @@ export default function Product() {
         })
     }, [cartItems, id]);
 
+    // change document title
+    useEffect(() => {
+        document.title = `uBuy | ${product.title || ''}`
+    }, [product]);
+
 
     function increaseQuantity() {
         setQuantity(q => q += 1);
